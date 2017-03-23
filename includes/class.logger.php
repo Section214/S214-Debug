@@ -216,7 +216,7 @@ class S214_Logger {
 
 		// Store the log entry
 		$log_id = wp_insert_post( $args );
-;
+
 		// Set the log type, if any
 		if ( $log_data['log_type'] && self::valid_type( $log_data['log_type'] ) ) {
 			wp_set_object_terms( $log_id, $log_data['log_type'], 's214_log_type', false );

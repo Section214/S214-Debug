@@ -51,7 +51,6 @@ if ( ! class_exists( 'S214_Debug' ) ) {
 				self::$instance->load_textdomain();
 				self::$instance->includes();
 			}
-			//s214_debug_log_error( 'Test', 'Test Message', 'Test User' );
 
 			return self::$instance;
 		}
