@@ -8,7 +8,7 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -27,12 +27,12 @@ function s214_debug_log_error( $title, $content, $logged_by = 'S214 Debug' ) {
 		'post_title'   => $title,
 		'post_content' => $content,
 		'post_parent'  => 0,
-		'log_type'     => 's214_error'
+		'log_type'     => 'error'
 	);
 
 	$log_meta = array(
 		'logged_by' => $logged_by
 	);
 
-	return WP_Logging::insert_log( $log_data, $log_meta );
+	return S214_Logger::insert_log( $log_data, $log_meta );
 }

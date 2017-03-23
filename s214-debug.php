@@ -14,12 +14,12 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 
-if( ! class_exists( 'S214_Debug' ) ) {
+if ( ! class_exists( 'S214_Debug' ) ) {
 
 
 	/**
@@ -45,12 +45,13 @@ if( ! class_exists( 'S214_Debug' ) ) {
 		 * @return      self::$instance The one true S214_Debug
 		 */
 		public static function instance() {
-			if( ! self::$instance ) {
+			if ( ! self::$instance ) {
 				self::$instance = new S214_Debug();
 				self::$instance->setup_constants();
 				self::$instance->load_textdomain();
 				self::$instance->includes();
 			}
+			//s214_debug_log_error( 'Test', 'Test Message', 'Test User' );
 
 			return self::$instance;
 		}
@@ -83,15 +84,14 @@ if( ! class_exists( 'S214_Debug' ) ) {
 		 * @return      void
 		 */
 		private function includes() {
-			require_once S214_DEBUG_DIR . 'includes/functions.php';
-
-			if( ! class_exists( 'WP_Logging' ) ) {
-				require_once S214_DEBUG_DIR . 'includes/libraries/class.wp-logging.php';
+			if ( ! class_exists( 'S214_Logger' ) ) {
+				require_once S214_DEBUG_DIR . 'includes/class.logger.php';
 			}
 
+			require_once S214_DEBUG_DIR . 'includes/functions.php';
 			require_once S214_DEBUG_DIR . 'includes/scripts.php';
 
-			if( is_admin() ) {
+			if ( is_admin() ) {
 				require_once S214_DEBUG_DIR . 'includes/admin/actions.php';
 				require_once S214_DEBUG_DIR . 'includes/admin/pages.php';
 			}
@@ -115,13 +115,13 @@ if( ! class_exists( 'S214_Debug' ) ) {
 			$mofile = sprintf( '%1$s-%2$s.mo', 's214-debug', $locale );
 
 			// Setup paths to current locale file
-			$mofile_local   = $lang_dir . $mofile;
-			$mofile_global  = WP_LANG_DIR . '/s214-debug/' . $mofile;
+			$mofile_local  = $lang_dir . $mofile;
+			$mofile_global = WP_LANG_DIR . '/s214-debug/' . $mofile;
 
-			if( file_exists( $mofile_global ) ) {
+			if ( file_exists( $mofile_global ) ) {
 				// Look in global /wp-content/languages/s214-debug/ folder
 				load_textdomain( 's214-debug', $mofile_global );
-			} elseif( file_exists( $mofile_local ) ) {
+			} elseif ( file_exists( $mofile_local ) ) {
 				// Look in local /wp-content/plugins/s214-debug/languages/ folder
 				load_textdomain( 's214-debug', $mofile_local );
 			} else {

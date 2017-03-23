@@ -8,8 +8,8 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 
@@ -21,12 +21,12 @@ if( ! defined( 'ABSPATH' ) ) {
  * @return      void
  */
 function s214_debug_process_actions() {
-    if( isset( $_POST['s214-debug-action'] ) ) {
-        do_action( 's214_debug_' . $_POST['s214-debug-action'], $_POST );
-    }
+	if( isset( $_POST['s214-debug-action'] ) ) {
+		do_action( 's214_debug_' . $_POST['s214-debug-action'], $_POST );
+	}
 
-    if( isset( $_GET['s214-debug-action'] ) ) {
-        do_action( 's214_debug_' . $_GET['s214-debug-action'], $_GET );
-    }
+	if( isset( $_GET['s214-debug-action'] ) ) {
+		do_action( 's214_debug_' . $_GET['s214-debug-action'], $_GET );
+	}
 }
 add_action( 'admin_init', 's214_debug_process_actions' );

@@ -8,7 +8,7 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -27,6 +27,7 @@ function s214_debug_logs_menu() {
 	$s214_debug_logs_page = add_submenu_page( 'tools.php', __( 'Section214 Debug', 's214-debug' ), __( 'Section214 Debug', 's214-debug' ), 'manage_options', 's214-debug-logs', 's214_debug_logs_page' );
 }
 add_action( 'admin_menu', 's214_debug_logs_menu' );
+
 
 /**
  * Render the logs page
@@ -47,7 +48,7 @@ function s214_debug_logs_page() {
 
 			$logs_table = new S214_Debug_Logs_List_Table();
 
-			//Fetch, prepare, sort, and filter our data...
+			// Fetch, prepare, sort, and filter our data...
 			$logs_table->prepare_items();
 
 			$logs_table->views();

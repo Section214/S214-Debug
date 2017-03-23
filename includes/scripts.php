@@ -8,7 +8,7 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -21,7 +21,7 @@ if( ! defined( 'ABSPATH' ) ) {
  * @return      void
  */
 function s214_debug_load_admin_scripts( $hook ) {
-	if( $hook == 'tools_page_s214-debug-logs' ) {
+	if ( $hook == 'tools_page_s214-debug-logs' ) {
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_style( 'thickbox' );
 

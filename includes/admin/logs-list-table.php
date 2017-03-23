@@ -8,12 +8,12 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 
-if( ! class_exists( 'WP_List_Table' ) ) {
+if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
@@ -59,7 +59,7 @@ class S214_Debug_Logs_List_Table extends WP_List_Table {
 			case 'log_error' :
 				return get_the_title( $item->ID );
 			case 'plugin' :
-				return get_post_meta( $item->ID, '_wp_log_logged_by', true );
+				return get_post_meta( $item->ID, '_s214_log_logged_by', true );
 			case 'date' :
 				$date = strtotime( get_post_field( 'post_date', $item->ID ) );
 
@@ -167,13 +167,13 @@ class S214_Debug_Logs_List_Table extends WP_List_Table {
 	function process_bulk_action() {
 		$ids = isset( $_GET['log'] ) ? $_GET['log'] : false;
 
-		if( ! is_array( $ids ) ) {
+		if ( ! is_array( $ids ) ) {
 			$ids = array( $ids );
 		}
 
-		foreach( $ids as $id ) {
+		foreach ( $ids as $id ) {
 			// Detect when a bulk action is being triggered...
-			if( 'delete' === $this->current_action() ) {
+			if ( 'delete' === $this->current_action() ) {
 				wp_delete_post( $id );
 			}
 		}
@@ -198,15 +198,15 @@ class S214_Debug_Logs_List_Table extends WP_List_Table {
 
 		$meta_query = array();
 
-		if( isset( $_GET['user'] ) ) {
+		if ( isset( $_GET['user'] ) ) {
 			$meta_query[] = array(
-				'key'   => '_wp_log_user_id',
+				'key'   => '_s214_log_user_id',
 				'value' => absint( $_GET['user'] )
 			);
 		}
 
-		$this->items = WP_Logging::get_connected_logs( array(
-			'log_type'       => 's214_error',
+		$this->items = S214_Logger::get_connected_logs( array(
+			'log_type'       => 'error',
 			'paged'          => $paged,
 			'posts_per_page' => $per_page,
 			'meta_query'     => $meta_query
@@ -214,13 +214,12 @@ class S214_Debug_Logs_List_Table extends WP_List_Table {
 
 		$current_page = $this->get_pagenum();
 
-		$total_items = WP_Logging::get_log_count( 0, 's214_error', $meta_query );
+		$total_items = S214_Logger::get_log_count( 0, 'error', $meta_query );
 
 		$this->set_pagination_args( array(
-			'total_items' => $total_items,                    //WE have to calculate the total number of items
-			'per_page'    => $per_page,                       //WE have to determine how many items to show on a page
-			'total_pages' => ceil( $total_items / $per_page ) //WE have to calculate the total number of pages
+			'total_items' => $total_items,                    // We have to calculate the total number of items
+			'per_page'    => $per_page,                       // We have to determine how many items to show on a page
+			'total_pages' => ceil( $total_items / $per_page ) // We have to calculate the total number of pages
 		) );
 	}
-
 }
